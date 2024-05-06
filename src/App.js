@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthenticatedLayout from './components/AuthenticatedLayout';
 import Login from './pages/Login';
 import Home from './pages/Home';
-import GerenciarUsuario from './pages/GerenciarUsuario'; // Importe o componente GerenciarUsuario
+import GerenciarUsuario from './pages/GerenciarUsuario';
+import CadastrarUsuario from './pages/CadastrarUsuario';
 
 const App = () => {
   return (
@@ -24,6 +25,14 @@ const App = () => {
           element={
             <AuthenticatedLayout>
               <GerenciarUsuario />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/cadastrarUsuario"
+          element={
+            <AuthenticatedLayout>
+              <CadastrarUsuario />
             </AuthenticatedLayout>
           }
         />
