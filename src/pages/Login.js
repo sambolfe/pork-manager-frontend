@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 const Login = () => {
   const [cpf, setCpf] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
+  const [error, setError] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica para enviar os dados de login para o backend
-    console.log('CPF:', cpf);
-    console.log('Senha:', password);
-    
-    // Redirecionar para a página Home após o login bem-sucedido
-    window.location.href = '/home';
+    try {
+      const response = await api.post('/auth', { cpf, senha });
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+      setLoggedIn(true);
+      console.log('Usuário logado com sucesso'); // Adicionando log de sucesso
+      navigate('/Home');
+    } catch (error) {
+      setError('Credenciais inválidas. Por favor, tente novamente.');
+    }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="bg-white p-8 rounded-lg shadow-md w-80">
-        <div className="mb-6">
-          <img
-            src="/caminho/para/sua/imagem.jpg"
-            alt="Logo"
-            className="w-full h-auto"
-          />
-        </div>
-        <form onSubmit={handleLogin}>
+        <img src="/logo.png" alt="Logo" className="mx-auto mb-8" />
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="cpf" className="block mb-1">CPF:</label>
             <input
@@ -42,8 +45,8 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
               placeholder="Digite sua senha"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             />
@@ -55,6 +58,12 @@ const Login = () => {
             Login
           </button>
         </form>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+        {loggedIn && (
+          <p className="mt-4">
+            Logado com sucesso! Redirecionando para a página inicial...
+          </p>
+        )}
       </div>
     </div>
   );
