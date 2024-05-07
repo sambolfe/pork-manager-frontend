@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import GerenciarUsuario from './pages/GerenciarUsuario';
 import CadastrarUsuario from './pages/CadastrarUsuario';
+import EditarUsuario from './pages/EditarUsuario';
 
 const App = () => {
   return (
@@ -33,6 +34,14 @@ const App = () => {
           element={
             <AuthenticatedLayout>
               <CadastrarUsuario />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/editarUsuario/:userId" 
+          element={
+            <AuthenticatedLayout>
+              <EditarUsuario />
             </AuthenticatedLayout>
           }
         />

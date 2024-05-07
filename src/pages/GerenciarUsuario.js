@@ -98,7 +98,7 @@ const GerenciarUsuario = () => {
                 <td className="p-3 px-5">{usuario.role}</td>
                 <td className="p-3 px-5">*****</td>
                 <td className="p-3 px-5 flex justify-end">
-                  <a href={`/edit/${usuario.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
+                  <a href={`/editarUsuario/${usuario.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
                   <button onClick={() => handleDeleteUser(usuario.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
                 </td>
               </tr>
