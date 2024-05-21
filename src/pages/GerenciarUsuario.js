@@ -80,7 +80,7 @@ const GerenciarUsuario = () => {
         <a href="/cadastrarUsuario" className="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Cadastrar Usuário</a>
       </div>
       <div className="px-3 py-4 flex justify-center">
-        <table className="w-full text-md bg-white shadow-md rounded mb-4">
+        <table className="hidden md:table w-full text-md bg-white shadow-md rounded mb-4">
           <tbody>
             <tr className="border-b">
               <th className="text-left p-3 px-5">Nome</th>
@@ -105,6 +105,21 @@ const GerenciarUsuario = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="md:hidden w-full">
+          {usuarios.map((usuario) => (
+            <div key={usuario.id} className="bg-white shadow-md rounded mb-4 p-4">
+              <p><strong>Nome:</strong> {usuario.nome}</p>
+              <p><strong>CPF:</strong> {usuario.cpf}</p>
+              <p><strong>Status:</strong> {usuario.active ? 'Ativo' : 'Inativo'}</p>
+              <p><strong>Tipo de Usuário:</strong> {usuario.role}</p>
+              <div className="flex justify-end mt-2">
+                <a href={`/editarUsuario/${usuario.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
+                <button onClick={() => handleDeleteUser(usuario.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

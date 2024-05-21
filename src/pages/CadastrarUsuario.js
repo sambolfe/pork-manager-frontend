@@ -5,8 +5,8 @@ const CadastrarUsuario = () => {
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
     const [senha, setSenha] = useState('');
-    const [role, setRole] = useState(''); 
-    const [active, setActive] = useState(''); 
+    const [role, setRole] = useState('');
+    const [active, setActive] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -59,7 +59,7 @@ const CadastrarUsuario = () => {
 
     return (
         <div className="container mx-auto px-4 py-8 flex justify-center items-center h-full">
-            <div className="w-full max-w-lg">
+            <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
                 <h1 className="text-3xl font-bold mb-4">Cadastrar Usuário</h1>
                 <form className="w-full" onSubmit={handleSubmit}>
                     <div className="flex flex-wrap -mx-3 mb-6">
@@ -67,7 +67,15 @@ const CadastrarUsuario = () => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="nome">
                                 Nome
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="nome" type="text" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
+                            <input
+                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="nome"
+                                type="text"
+                                placeholder="Nome"
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="w-full md:w-1/2 px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="role">
@@ -78,7 +86,7 @@ const CadastrarUsuario = () => {
                                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="role"
                                     value={role}
-                                    onChange={(e) => setRole(e.target.value)} // Definindo o valor de role ao selecionar uma opção
+                                    onChange={(e) => setRole(e.target.value)}
                                     required
                                 >
                                     <option value="">Selecione...</option>
@@ -96,7 +104,15 @@ const CadastrarUsuario = () => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="cpf">
                                 CPF
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="cpf" type="text" placeholder="12345678901" value={cpf} onChange={(e) => setCpf(e.target.value)} required />
+                            <input
+                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="cpf"
+                                type="text"
+                                placeholder="12345678901"
+                                value={cpf}
+                                onChange={(e) => setCpf(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="w-full md:w-1/2 px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="status">
@@ -106,8 +122,8 @@ const CadastrarUsuario = () => {
                                 <select
                                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="status"
-                                    value={active ? true : false} // Definindo o valor de active ao selecionar uma opção
-                                    onChange={(e) => setActive(e.target.value)} // Convertendo para booleano ao selecionar uma opção
+                                    value={active}
+                                    onChange={(e) => setActive(e.target.value)}
                                     required
                                 >
                                     <option value="">Selecione...</option>
@@ -125,11 +141,23 @@ const CadastrarUsuario = () => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="senha">
                                 Senha
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="senha" type="password" placeholder="******************" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+                            <input
+                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="senha"
+                                type="password"
+                                placeholder="******************"
+                                value={senha}
+                                onChange={(e) => setSenha(e.target.value)}
+                                required
+                            />
                         </div>
                     </div>
                     <div className="flex items-center justify-between">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" disabled={loading}>
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            type="submit"
+                            disabled={loading}
+                        >
                             {loading ? 'Aguarde...' : 'Cadastrar'}
                         </button>
                         {error && <p className="text-red-500 text-xs italic">{error}</p>}
