@@ -14,8 +14,9 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await api.post('/auth', { cpf, senha });
-      const { token } = response.data;
+      const { token, role } = response.data; // Presumindo que a resposta inclui o tipo de usuário (role)
       localStorage.setItem('token', token);
+      localStorage.setItem('userRole', role); // Armazenando o tipo de usuário no localStorage
       setLoggedIn(true);
       console.log('Usuário logado com sucesso'); // Adicionando log de sucesso
       navigate('/Home');

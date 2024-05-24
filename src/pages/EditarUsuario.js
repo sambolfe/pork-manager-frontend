@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // Importe useParams aqui
+import { useParams, Navigate } from 'react-router-dom'; // Importe Navigate aqui
 
 const EditarUsuario = () => {
     const { userId } = useParams();
@@ -12,6 +12,7 @@ const EditarUsuario = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         fetchUserData();
@@ -66,6 +67,12 @@ const EditarUsuario = () => {
 
             await axios.put(`http://localhost:8080/porkManagerApi/usuario/updateUsuario/${userId}`, userData, config);
             console.log('Usuário atualizado com sucesso!');
+            setSuccessMessage('Usuário atualizado com sucesso! Redirecionando para a página de Usuários');
+            setTimeout(() => {
+                setSuccessMessage('');
+                // Redirecionar após 5 segundos
+                window.location.href = '/gerenciarUsuario';
+            }, 5000);
         } catch (error) {
             console.error('Erro ao atualizar usuário:', error);
             setError('Erro ao atualizar usuário. Por favor, tente novamente mais tarde.');
@@ -178,6 +185,9 @@ const EditarUsuario = () => {
                             {loading ? 'Aguarde...' : 'Salvar'}
                         </button>
                         {error && <p className="text-red-500 text-xs italic">{error}</p>}
+                        {successMessage && (
+                            <p className="bg-green-200 text-green-800 px-4 py-2 rounded">{successMessage}</p>
+                        )}
                     </div>
                 </form>
             </div>
@@ -186,3 +196,4 @@ const EditarUsuario = () => {
 };
 
 export default EditarUsuario;
+

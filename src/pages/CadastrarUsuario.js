@@ -7,14 +7,17 @@ const CadastrarUsuario = () => {
     const [senha, setSenha] = useState('');
     const [role, setRole] = useState('');
     const [active, setActive] = useState('');
+    
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+        setSuccessMessage('');
 
         try {
             const token = localStorage.getItem('token');
@@ -49,6 +52,13 @@ const CadastrarUsuario = () => {
             }, config);
 
             console.log('Usuário cadastrado com sucesso:', response.data);
+            setSuccessMessage('Usuário cadastrado com sucesso!');
+            // Limpar os campos do formulário
+            setNome('');
+            setCpf('');
+            setSenha('');
+            setRole('');
+            setActive('');
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
             setError('Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.');
@@ -161,6 +171,9 @@ const CadastrarUsuario = () => {
                             {loading ? 'Aguarde...' : 'Cadastrar'}
                         </button>
                         {error && <p className="text-red-500 text-xs italic">{error}</p>}
+                        {successMessage && (
+                            <p className="bg-green-200 text-green-800 px-4 py-2 rounded">{successMessage}</p>
+                        )}
                     </div>
                 </form>
             </div>

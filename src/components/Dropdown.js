@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { logout } from '../services/auth'; // Importar função logout
 
 function Dropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('userRole');
+    setRole(userRole);
+  }, []);
 
   const handleLogout = () => {
     logout(); // Limpar token do armazenamento local
@@ -55,23 +61,24 @@ function Dropdown() {
           className="z-10 absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow"
         >
           <ul className="py-2 text-sm text-gray-700">
-            <li>
-              <a
-                href="/gerenciarUsuario"
-                className="block px-4 py-2 hover:bg-gray-100"
-              >
-                Gerenciar usuário
-              </a>
-            </li>
+            {role === 'ADMIN' && (
+              <li>
+                <a
+                  href="/gerenciarUsuario"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Gerenciar usuário
+                </a>
+              </li>
+            )}
           </ul>
           <div className="py-2">
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            <button
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               onClick={handleLogout} // Adicionar evento onClick para logout
             >
               Sair
-            </a>
+            </button>
           </div>
         </div>
       )}
