@@ -7,6 +7,12 @@ import Home from './pages/Home';
 import GerenciarUsuario from './pages/GerenciarUsuario';
 import CadastrarUsuario from './pages/CadastrarUsuario';
 import EditarUsuario from './pages/EditarUsuario';
+import GerenciarAlojamentos from './pages/GerenciarAlojamento';
+import GerenciarSuinos from './pages/GerenciarSuino';
+import GerenciarRacas from './pages/GerenciarRaca';
+import GerenciarSaude from './pages/GerenciarSaude';
+import EditarAlojamento from './pages/EditarAlojamento';
+import CadastrarAlojamento from './pages/CadastrarAlojamento';
 
 const App = () => {
   return (
@@ -42,6 +48,54 @@ const App = () => {
           element={
             <AuthenticatedLayout>
               <EditarUsuario />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/gerenciarAlojamento"
+          element={
+            <AuthenticatedLayout>
+              <GerenciarAlojamentos />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/cadastrarAlojamento"
+          element={
+            <AuthenticatedLayout>
+              <CadastrarAlojamento />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/editarAlojamento/:alojamentoId" 
+          element={
+            <AuthenticatedLayout>
+              <EditarAlojamento />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/gerenciarSuino"
+          element={
+            <AuthenticatedLayout>
+              <GerenciarSuinos />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/gerenciarRaca"
+          element={
+            <AuthenticatedLayout>
+              <GerenciarRacas />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/gerenciarSaude"
+          element={
+            <AuthenticatedLayout>
+              <GerenciarSaude />
             </AuthenticatedLayout>
           }
         />

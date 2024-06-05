@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Drawer, List, ListItem, ListItemText, Collapse, Popover } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { useNavigate } from 'react-router-dom';
 import Dropdown from './Dropdown';
 
 const Header = () => {
@@ -14,6 +15,8 @@ const Header = () => {
         racas: false,
         saude: false
     });
+
+    const navigate = useNavigate();
 
     const toggleDrawer = (open) => (event) => {
         setIsDrawerOpen(open);
@@ -36,6 +39,11 @@ const Header = () => {
             ...prevState,
             [key]: !prevState[key]
         }));
+    };
+
+    const handleNavigate = (path) => {
+        navigate(path);
+        handleClose();
     };
 
     return (
@@ -65,7 +73,7 @@ const Header = () => {
                         }}
                     >
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarAlojamento')}>
                                 <ListItemText primary="Listar Alojamentos" />
                             </ListItem>
                         </List>
@@ -89,7 +97,7 @@ const Header = () => {
                         }}
                     >
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarSuino')}>
                                 <ListItemText primary="Listar Suínos" />
                             </ListItem>
                         </List>
@@ -113,7 +121,7 @@ const Header = () => {
                         }}
                     >
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarRaca')}>
                                 <ListItemText primary="Listar Raças" />
                             </ListItem>
                         </List>
@@ -137,7 +145,7 @@ const Header = () => {
                         }}
                     >
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarSaude')}>
                                 <ListItemText primary="Listar Saúde" />
                             </ListItem>
                         </List>
@@ -162,7 +170,7 @@ const Header = () => {
                     </ListItem>
                     <Collapse in={mobileOpenDropdown.alojamentos} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarAlojamento')}>
                                 <ListItemText primary="Listar Alojamentos" />
                             </ListItem>
                         </List>
@@ -174,7 +182,7 @@ const Header = () => {
                     </ListItem>
                     <Collapse in={mobileOpenDropdown.suinos} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarSuino')}>
                                 <ListItemText primary="Listar Suínos" />
                             </ListItem>
                         </List>
@@ -186,7 +194,7 @@ const Header = () => {
                     </ListItem>
                     <Collapse in={mobileOpenDropdown.racas} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarRaca')}>
                                 <ListItemText primary="Listar Raças" />
                             </ListItem>
                         </List>
@@ -198,7 +206,7 @@ const Header = () => {
                     </ListItem>
                     <Collapse in={mobileOpenDropdown.saude} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItem button>
+                            <ListItem button onClick={() => handleNavigate('/gerenciarSaude')}>
                                 <ListItemText primary="Listar Saúde" />
                             </ListItem>
                         </List>
