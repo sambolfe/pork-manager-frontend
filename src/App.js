@@ -13,6 +13,8 @@ import GerenciarRacas from './pages/GerenciarRaca';
 import GerenciarSaude from './pages/GerenciarSaude';
 import EditarAlojamento from './pages/EditarAlojamento';
 import CadastrarAlojamento from './pages/CadastrarAlojamento';
+import CadastrarRacas from './pages/CadastrarRaca';
+import EditarRaca from './pages/EditarRaca';
 
 const App = () => {
   return (
@@ -88,6 +90,22 @@ const App = () => {
           element={
             <AuthenticatedLayout>
               <GerenciarRacas />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/editarRaca/:racaId" 
+          element={
+            <AuthenticatedLayout>
+              <EditarRaca />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/cadastrarRaca"
+          element={
+            <AuthenticatedLayout>
+              <CadastrarRacas />
             </AuthenticatedLayout>
           }
         />

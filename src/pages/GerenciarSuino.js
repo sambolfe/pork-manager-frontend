@@ -42,22 +42,27 @@ const GerenciarSuino = () => {
         if (!token) {
           throw new Error('Token JWT não encontrado no armazenamento local.');
         }
-
+  
         const config = {
           headers: {
             Authorization: `Bearer ${token}`
           }
         };
-
+  
+        // Excluir o suíno
         await axios.delete(`http://localhost:8080/porkManagerApi/suino/deleteSuino/${suinoId}`, config);
+  
+        // Atualizar a lista de suínos após deletar o suíno com sucesso
         setSuinos(suinos.filter(suino => suino.id !== suinoId));
-        setSuccessMessage('Suíno deletado com sucesso!');
+  
+        // Definir mensagem de sucesso
+        setSuccessMessage('Suíno e registros de saúde relacionados excluídos com sucesso!');
       } catch (error) {
         console.error('Erro ao deletar suíno:', error);
       }
     }
   };
-
+  
   return (
     <div className="text-gray-900 bg-gray-200 min-h-screen">
       <div className="p-4 flex justify-between items-center">

@@ -39,14 +39,35 @@ const GerenciarRaca = () => {
   const handleDeleteRaca = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir a raça?')) {
       try {
-        await axios.delete(`http://localhost:8080/porkManagerApi/raca/deleteRaca/${id}`);
+        // Obter token do armazenamento local
+        const token = localStorage.getItem('token');
+  
+        // Verificar se o token está presente
+        if (!token) {
+          throw new Error('Token JWT não encontrado no armazenamento local.');
+        }
+  
+        // Configurar o cabeçalho de autorização
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        };
+  
+        // Enviar solicitação para deletar a raça
+        await axios.delete(`http://localhost:8080/porkManagerApi/raca/deleteRaca/${id}`, config);
+  
+        // Atualizar a lista de raças após deletar a raça com sucesso
         setRacas(racas.filter(raca => raca.id !== id));
+  
+        // Definir mensagem de sucesso
         setSuccessMessage('Raça excluída com sucesso!');
       } catch (error) {
         console.error('Erro ao excluir raça:', error);
       }
     }
   };
+  
 
   return (
     <div className="text-gray-900 bg-gray-200 min-h-screen">
