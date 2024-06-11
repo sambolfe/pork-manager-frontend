@@ -74,13 +74,12 @@ const GerenciarSuino = () => {
       <div className="px-3 py-4 flex justify-center">
         <table className="hidden md:table w-full text-md bg-white shadow-md rounded mb-4">
           <tbody>
-          <tr className="border-b">
+            <tr className="border-b">
               <th className="text-left p-3 px-5">Identificação de Orelha</th>
               <th className="text-left p-3 px-5">Data de Nascimento</th>
               <th className="text-left p-3 px-5">Sexo</th>
               <th className="text-left p-3 px-5">Observações</th>
               <th className="text-left p-3 px-5">Tipo de Suíno</th>
-              <th className="text-left p-3 px-5">ID do Usuário</th>
               <th className="text-left p-3 px-5">ID do Alojamento</th>
               <th className="text-left p-3 px-5">ID da Raça</th>
               <th className="text-left p-3 px-5">Ações</th>
@@ -92,9 +91,8 @@ const GerenciarSuino = () => {
                 <td className="p-3 px-5">{suino.sexo}</td>
                 <td className="p-3 px-5">{suino.observacoes}</td>
                 <td className="p-3 px-5">{suino.tipoSuino}</td>
-                <td className="p-3 px-5">{suino.idUsuario}</td>
-                <td className="p-3 px-5">{suino.alojamentoId}</td>
-                <td className="p-3 px-5">{suino.idRaca}</td>
+                <td className="p-3 px-5">{suino.nomeAlojamento}</td>
+                <td className="p-3 px-5">{suino.nomeRaca}</td>
                 <td className="p-3 px-5 flex justify-end">
                   <a href={`/editarSuino/${suino.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
                   <button onClick={() => handleDeleteSuino(suino.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
@@ -112,7 +110,6 @@ const GerenciarSuino = () => {
               <p><strong>Sexo:</strong> {suino.sexo}</p>
               <p><strong>Observações:</strong> {suino.observacoes}</p>
               <p><strong>Tipo de Suíno:</strong> {suino.tipoSuino}</p>
-              <p><strong>ID do Usuário:</strong> {suino.idUsuario}</p>
               <p><strong>ID do Alojamento:</strong> {suino.alojamentoId}</p>
               <p><strong>ID da Raça:</strong> {suino.idRaca}</p>
               <div className="flex justify-end mt-2">

@@ -15,6 +15,10 @@ import EditarAlojamento from './pages/EditarAlojamento';
 import CadastrarAlojamento from './pages/CadastrarAlojamento';
 import CadastrarRacas from './pages/CadastrarRaca';
 import EditarRaca from './pages/EditarRaca';
+import CadastrarSuino from './pages/CadastrarSuino';
+import EditarSuino from './pages/EditarSuino';
+import CadastrarSaude from './pages/CadastrarSaude';
+import EditarSaude from './pages/EditarSaude';
 
 const App = () => {
   return (
@@ -86,6 +90,22 @@ const App = () => {
           }
         />
         <Route
+          path="/editarSuino/:suinoId" 
+          element={
+            <AuthenticatedLayout>
+              <EditarSuino />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/cadastrarSuino"
+          element={
+            <AuthenticatedLayout>
+              <CadastrarSuino />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
           path="/gerenciarRaca"
           element={
             <AuthenticatedLayout>
@@ -114,6 +134,22 @@ const App = () => {
           element={
             <AuthenticatedLayout>
               <GerenciarSaude />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/cadastrarSaude"
+          element={
+            <AuthenticatedLayout>
+              <CadastrarSaude />
+            </AuthenticatedLayout>
+          }
+        />
+        <Route
+          path="/editarSaude/:saudeId" 
+          element={
+            <AuthenticatedLayout>
+              <EditarSaude />
             </AuthenticatedLayout>
           }
         />

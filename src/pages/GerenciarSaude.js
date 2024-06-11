@@ -33,26 +33,25 @@ const GerenciarSaude = () => {
     fetchSaudes();
   }, []);
 
-  const handleDeleteSaude = async (saudeId) => {
-    if (window.confirm('Tem certeza que deseja excluir este registro de saúde?')) {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('Token JWT não encontrado no armazenamento local.');
-        }
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
-        await axios.delete(`http://localhost:8080/porkManagerApi/saude/deleteSaude/${saudeId}`, config);
-        setSaudes(saudes.filter(saude => saude.id !== saudeId));
-        setSuccessMessage('Registro de saúde deletado com sucesso!');
-      } catch (error) {
-        console.error('Erro ao deletar registro de saúde:', error);
-      }
+  const handleDelete = async (id) => {
+    if (!window.confirm('Tem certeza que deseja excluir este registro de saúde?')) {
+        return;
     }
-  };
+    try {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        await axios.delete(`http://localhost:8080/porkManagerApi/saude/deleteSaude/${id}`, config);
+        setSaudes(saudes.filter(saude => saude.id !== id));
+        setSuccessMessage('Registro de saúde deletado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao deletar registro de saúde:', error);
+        setError('Erro ao deletar o registro de saúde.');
+    }
+};
 
   return (
     <div className="text-gray-900 bg-gray-200 min-h-screen">
@@ -87,7 +86,7 @@ const GerenciarSaude = () => {
                   <td className="p-3 px-5">{saude.identificadorOrelha}</td>
                   <td className="p-3 px-5 flex justify-end">
                     <a href={`/editarSaude/${saude.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
-                    <button onClick={() => handleDeleteSaude(saude.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
+                    <button onClick={() => handleDelete(saude.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
                   </td>
                 </tr>
               ))}
@@ -105,7 +104,7 @@ const GerenciarSaude = () => {
               <p><strong>Identificação de Orelha:</strong> {saude.identificadorOrelha}</p>
               <div className="flex justify-end mt-2">
                 <a href={`/editarSaude/${saude.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
-                <button onClick={() => handleDeleteSaude(saude.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
+                <button onClick={() => handleDelete(saude.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
               </div>
             </div>
           ))}
