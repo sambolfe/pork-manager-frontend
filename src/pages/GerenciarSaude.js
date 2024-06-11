@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const GerenciarSaude = () => {
   const [saudes, setSaudes] = useState([]);
+  const [totalSaudes, setTotalSaudes] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
@@ -22,6 +23,7 @@ const GerenciarSaude = () => {
         };
         const response = await axios.get('http://localhost:8080/porkManagerApi/saude/getAllSaudes', config);
         setSaudes(response.data);
+        setTotalSaudes(response.data.length); 
         setError(null);
       } catch (error) {
         setError('Erro ao carregar registros de saúde. Por favor, tente novamente mais tarde.');
@@ -46,6 +48,7 @@ const GerenciarSaude = () => {
         };
         await axios.delete(`http://localhost:8080/porkManagerApi/saude/deleteSaude/${id}`, config);
         setSaudes(saudes.filter(saude => saude.id !== id));
+        setTotalSaudes(totalSaudes - 1);
         setSuccessMessage('Registro de saúde deletado com sucesso!');
     } catch (error) {
         console.error('Erro ao deletar registro de saúde:', error);
@@ -146,6 +149,7 @@ const GerenciarSaude = () => {
           </span>
         </div>
       )}
+      <p className="text-center">Total de Registros de saúde cadastrados: {totalSaudes}</p>
     </div>
   );
 };

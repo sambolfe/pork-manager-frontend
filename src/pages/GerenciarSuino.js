@@ -4,6 +4,7 @@ import axios from 'axios';
 const GerenciarSuino = () => {
   const [suinos, setSuinos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalSuinos, setTotalSuinos] = useState(0);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -24,6 +25,7 @@ const GerenciarSuino = () => {
 
         const response = await axios.get('http://localhost:8080/porkManagerApi/suino/getAllSuinos', config);
         setSuinos(response.data);
+        setTotalSuinos(response.data.length); 
         setError(null);
       } catch (error) {
         setError('Erro ao carregar suínos. Por favor, tente novamente mais tarde.');
@@ -54,6 +56,7 @@ const GerenciarSuino = () => {
   
         // Atualizar a lista de suínos após deletar o suíno com sucesso
         setSuinos(suinos.filter(suino => suino.id !== suinoId));
+        setTotalSuinos(totalSuinos - 1);
   
         // Definir mensagem de sucesso
         setSuccessMessage('Suíno e registros de saúde relacionados excluídos com sucesso!');
@@ -80,8 +83,8 @@ const GerenciarSuino = () => {
               <th className="text-left p-3 px-5">Sexo</th>
               <th className="text-left p-3 px-5">Observações</th>
               <th className="text-left p-3 px-5">Tipo de Suíno</th>
-              <th className="text-left p-3 px-5">ID do Alojamento</th>
-              <th className="text-left p-3 px-5">ID da Raça</th>
+              <th className="text-left p-3 px-5">Nome do Alojamento</th>
+              <th className="text-left p-3 px-5">Nome da Raça</th>
               <th className="text-left p-3 px-5">Ações</th>
             </tr>
             {suinos.map((suino) => (
@@ -110,8 +113,8 @@ const GerenciarSuino = () => {
               <p><strong>Sexo:</strong> {suino.sexo}</p>
               <p><strong>Observações:</strong> {suino.observacoes}</p>
               <p><strong>Tipo de Suíno:</strong> {suino.tipoSuino}</p>
-              <p><strong>ID do Alojamento:</strong> {suino.alojamentoId}</p>
-              <p><strong>ID da Raça:</strong> {suino.idRaca}</p>
+              <p><strong>Nome do Alojamento:</strong> {suino.alojamentoId}</p>
+              <p><strong>Nome da Raça:</strong> {suino.idRaca}</p>
               <div className="flex justify-end mt-2">
                 <a href={`/editarSuino/${suino.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
                 <button onClick={() => handleDeleteSuino(suino.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
@@ -140,6 +143,7 @@ const GerenciarSuino = () => {
       )}
       {loading && <p className="text-center">Carregando suínos...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
+      <p className="text-center">Total de Suínos cadastrados: {totalSuinos}</p>
     </div>
   );
 };

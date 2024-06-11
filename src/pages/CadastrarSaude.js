@@ -62,8 +62,6 @@ const CadastrarSaude = () => {
                 idSuino: parseInt(idSuino)  // Converte idSuino para número
             };
 
-            console.log('Dados de saúde enviados:', saudeData); // Log para verificação
-
             await axios.post('http://localhost:8080/porkManagerApi/saude/saveSaude', saudeData, config);
             setSuccessMessage('Registro de saúde cadastrado com sucesso!');
             setTimeout(() => navigate('/gerenciarSaude'), 5000);  // Redireciona após 5 segundos

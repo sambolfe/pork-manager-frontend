@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const GerenciarRaca = () => {
   const [racas, setRacas] = useState([]);
+  const [totalRacas, setTotalRacas] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
@@ -24,6 +25,7 @@ const GerenciarRaca = () => {
 
         const response = await axios.get('http://localhost:8080/porkManagerApi/raca/getAllRacas', config);
         setRacas(response.data);
+        setTotalRacas(response.data.length); // Contador para o total de raças
         setError(null);
       } catch (error) {
         console.error('Erro ao carregar raças:', error);
@@ -59,6 +61,7 @@ const GerenciarRaca = () => {
   
         // Atualizar a lista de raças após deletar a raça com sucesso
         setRacas(racas.filter(raca => raca.id !== id));
+        setTotalRacas(totalRacas - 1); // Atualizar o contador de raças após exclusão
   
         // Definir mensagem de sucesso
         setSuccessMessage('Raça excluída com sucesso!');
@@ -67,7 +70,6 @@ const GerenciarRaca = () => {
       }
     }
   };
-  
 
   return (
     <div className="text-gray-900 bg-gray-200 min-h-screen">
@@ -134,6 +136,7 @@ const GerenciarRaca = () => {
       )}
       {loading && <p className="text-center">Carregando raças...</p>}
       {error && <p className="text-center text-red-500">{error}</p>}
+      <p className="text-center">Total de Raças Cadastradas: {totalRacas}</p>
     </div>
   );
 };

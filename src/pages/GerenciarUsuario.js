@@ -3,15 +3,13 @@ import axios from 'axios';
 
 const GerenciarUsuario = () => {
   const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [totalUsuarios, setTotalUsuarios] = useState(0);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(''); // Estado para mensagem de sucesso
+  const [successMessage, setSuccessMessage] = useState(''); 
 
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
-        setLoading(true);
-
         // Obter token do armazenamento local
         const token = localStorage.getItem('token');
 
@@ -32,11 +30,10 @@ const GerenciarUsuario = () => {
 
         // Definir os usuários com base na resposta
         setUsuarios(response.data);
+        setTotalUsuarios(response.data.length); 
         setError(null);
       } catch (error) {
         setError('Erro ao carregar usuários. Por favor, tente novamente mais tarde.');
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -68,6 +65,7 @@ const GerenciarUsuario = () => {
 
         // Atualizar a lista de usuários após deletar o usuário com sucesso
         setUsuarios(usuarios.filter(user => user.id !== userId));
+        setTotalUsuarios(totalUsuarios - 1);
 
         // Definir mensagem de sucesso
         setSuccessMessage('Usuário deletado com sucesso!');
@@ -163,6 +161,7 @@ const GerenciarUsuario = () => {
           </span>
         </div>
       )}
+            <p className="text-center">Total de Usuários cadastrados: {totalUsuarios}</p>
     </div>
   );
 };

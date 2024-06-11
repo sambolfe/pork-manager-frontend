@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CadastrarUsuario = () => {
+    const navigate = useNavigate();
+
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
     const [senha, setSenha] = useState('');
@@ -48,11 +51,14 @@ const CadastrarUsuario = () => {
                 cpf: cpf,
                 senha: senha,
                 role: role,
-                active: activeBoolean // Enviando o booleano para o backend
+                active: activeBoolean
             }, config);
 
             console.log('Usuário cadastrado com sucesso:', response.data);
-            setSuccessMessage('Usuário cadastrado com sucesso!');
+            setSuccessMessage('Usuário cadastrado com sucesso! Redirecionando para Usuarios em 5 segundos...');
+            setTimeout(() => {
+                navigate('/gerenciarUsuario');
+              }, 5000);
             // Limpar os campos do formulário
             setNome('');
             setCpf('');
