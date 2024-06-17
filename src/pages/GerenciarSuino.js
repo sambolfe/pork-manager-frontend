@@ -62,6 +62,7 @@ const GerenciarSuino = () => {
         setSuccessMessage('Suíno e registros de saúde relacionados excluídos com sucesso!');
       } catch (error) {
         console.error('Erro ao deletar suíno:', error);
+        setError('Não é possível deletar o suíno!! Há registros de saúde relacionado a ele, exclua os registros de saúde primeiro após tente deletar o suino novamente.');
       }
     }
   };
@@ -84,6 +85,7 @@ const GerenciarSuino = () => {
               <th className="text-left p-3 px-5">Observações</th>
               <th className="text-left p-3 px-5">Tipo de Suíno</th>
               <th className="text-left p-3 px-5">Nome do Alojamento</th>
+              <th className="text-left p-3 px-5">Nome do Usuário</th>
               <th className="text-left p-3 px-5">Nome da Raça</th>
               <th className="text-left p-3 px-5">Ações</th>
             </tr>
@@ -95,6 +97,7 @@ const GerenciarSuino = () => {
                 <td className="p-3 px-5">{suino.observacoes}</td>
                 <td className="p-3 px-5">{suino.tipoSuino}</td>
                 <td className="p-3 px-5">{suino.nomeAlojamento}</td>
+                <td className="p-3 px-5">{suino.nomeUsuario}</td>
                 <td className="p-3 px-5">{suino.nomeRaca}</td>
                 <td className="p-3 px-5 flex justify-end">
                   <a href={`/editarSuino/${suino.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
@@ -114,6 +117,7 @@ const GerenciarSuino = () => {
               <p><strong>Observações:</strong> {suino.observacoes}</p>
               <p><strong>Tipo de Suíno:</strong> {suino.tipoSuino}</p>
               <p><strong>Nome do Alojamento:</strong> {suino.alojamentoId}</p>
+              <p><strong>Nome do Usuario:</strong> {suino.nomeUsuario}</p>
               <p><strong>Nome da Raça:</strong> {suino.idRaca}</p>
               <div className="flex justify-end mt-2">
                 <a href={`/editarSuino/${suino.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>

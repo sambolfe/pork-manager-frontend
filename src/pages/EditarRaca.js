@@ -62,12 +62,11 @@ const EditarRaca = () => {
 
             await axios.put(`http://localhost:8080/porkManagerApi/raca/updateRaca/${racaId}`, racaData, config);
             console.log('Raça atualizada com sucesso!');
-            setSuccessMessage('Raça atualizada com sucesso! Redirecionando para a página de Gerenciar Raças');
+            setSuccessMessage('Raça atualizada com sucesso! Redirecionando...');
             setTimeout(() => {
                 setSuccessMessage('');
-                // Redirecionar após 5 segundos
                 window.location.href = '/gerenciarRaca';
-            }, 5000);
+            }, 3000);
         } catch (error) {
             console.error('Erro ao atualizar raça:', error);
             setError('Erro ao atualizar raça. Por favor, tente novamente mais tarde.');

@@ -63,8 +63,8 @@ const CadastrarSaude = () => {
             };
 
             await axios.post('http://localhost:8080/porkManagerApi/saude/saveSaude', saudeData, config);
-            setSuccessMessage('Registro de saúde cadastrado com sucesso!');
-            setTimeout(() => navigate('/gerenciarSaude'), 5000);  // Redireciona após 5 segundos
+            setSuccessMessage('Registro de saúde cadastrado com sucesso! Redirecionando...');
+            setTimeout(() => navigate('/gerenciarSaude'), 3000);  
         } catch (error) {
             console.error('Erro ao cadastrar dados de saúde:', error);
             setError('Erro ao cadastrar dados de saúde. Por favor, tente novamente mais tarde.');

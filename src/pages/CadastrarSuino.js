@@ -6,19 +6,19 @@ const CadastrarSuino = () => {
   const navigate = useNavigate();
 
   const [identificacaoOrelha, setIdentificacaoOrelha] = useState('');
-    const [dataNasc, setDataNasc] = useState('');
-    const [sexo, setSexo] = useState('');
-    const [observacoes, setObservacoes] = useState('');
-    const [tipoSuino, setTipoSuino] = useState('');
-    const [idUsuario, setIdUsuario] = useState('');
-    const [idRaca, setIdRaca] = useState('');
-    const [racas, setRacas] = useState([]);
-    const [alojamentoId, setAlojamentoId] = useState('');
-    const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [showSuccessMessage, setShowSuccessMessage] = useState('');
-    const [usuarios, setUsuarios] = useState([]);
-    const [alojamentos, setAlojamentos] = useState([]);
+  const [dataNasc, setDataNasc] = useState('');
+  const [sexo, setSexo] = useState('');
+  const [observacoes, setObservacoes] = useState('');
+  const [tipoSuino, setTipoSuino] = useState('');
+  const [idUsuario, setIdUsuario] = useState('');
+  const [idRaca, setIdRaca] = useState('');
+  const [racas, setRacas] = useState([]);
+  const [alojamentoId, setAlojamentoId] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState('');
+  const [usuarios, setUsuarios] = useState([]);
+  const [alojamentos, setAlojamentos] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +73,7 @@ const CadastrarSuino = () => {
         idUsuario,
         alojamentoId,
         idRaca: idRaca
-    };
+      };
       await axios.post('http://localhost:8080/porkManagerApi/suino/saveSuino', suinoData, config);
 
       setSuccessMessage('Suíno cadastrado com sucesso!');
@@ -159,15 +159,18 @@ const CadastrarSuino = () => {
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipoSuino">
                 Tipo de Suíno
               </label>
-              <input
+              <select
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="tipoSuino"
-                type="text"
-                placeholder="Tipo de Suíno"
                 value={tipoSuino}
                 onChange={(e) => setTipoSuino(e.target.value)}
                 required
-              />
+              >
+                <option value="">Selecione o tipo de suíno</option>
+                <option value="ENGORDA">Engorda</option>
+                <option value="CRECHE">Creche</option>
+                <option value="GESTACAO">Gestação</option>
+              </select>
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">

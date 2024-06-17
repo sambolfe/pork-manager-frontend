@@ -19,7 +19,6 @@ const EditarSuino = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [showSuccessMessage, setShowSuccessMessage] = useState('');
     const [usuarios, setUsuarios] = useState([]);
     const [alojamentos, setAlojamentos] = useState([]);
 
@@ -71,7 +70,6 @@ const EditarSuino = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            // Lógica para atualizar o suíno
             const token = localStorage.getItem('token');
             if (!token) {
                 throw new Error('Token JWT não encontrado no armazenamento local.');
@@ -93,12 +91,10 @@ const EditarSuino = () => {
             };
             await axios.put(`http://localhost:8080/porkManagerApi/suino/updateSuino/${suinoId}`, suinoData, config);
 
-            // Definir mensagem de sucesso e redirecionar após 5 segundos
-            setSuccessMessage('Suíno atualizado com sucesso! Redirecionando para a página de gerenciamento...');
-            setShowSuccessMessage(true);
+            setSuccessMessage('Suíno atualizado com sucesso! Redirecionando...');
             setTimeout(() => {
                 navigate('/gerenciarSuino');
-            }, 5000);
+            }, 3000);
         } catch (error) {
             console.error('Erro ao atualizar suíno:', error);
             setError('Erro ao atualizar suíno. Por favor, tente novamente mais tarde.');
@@ -180,15 +176,18 @@ const EditarSuino = () => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipoSuino">
                                 Tipo de Suíno
                             </label>
-                            <input
+                            <select
                                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="tipoSuino"
-                                type="text"
-                                placeholder="Tipo de Suíno"
                                 value={tipoSuino}
                                 onChange={(e) => setTipoSuino(e.target.value)}
                                 required
-                            />
+                            >
+                                <option value="">Selecione o tipo de suíno</option>
+                                <option value="ENGORDA">Engorda</option>
+                                <option value="CRECHE">Creche</option>
+                                <option value="GESTACAO">Gestação</option>
+                            </select>
                         </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6">

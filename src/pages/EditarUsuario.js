@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
-
 const EditarUsuario = () => {
     const navigate = useNavigate();
-
     const { userId } = useParams();
+
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
     const [senha, setSenha] = useState('');
@@ -75,10 +74,10 @@ const EditarUsuario = () => {
             };
 
             await axios.put(`http://localhost:8080/porkManagerApi/usuario/updateUsuario/${userId}`, userData, config);
-            setSuccessMessage('Usuário atualizado com sucesso! Redirecionando para página de usuarios em 5 segundos...');
+            setSuccessMessage('Usuário atualizado com sucesso! Redirecionando...');
             setTimeout(() => {
                 navigate('/gerenciarUsuario');
-            }, 5000);
+            }, 3000);
         } catch (error) {
             console.error('Erro ao atualizar usuário:', error);
             setError('Erro ao atualizar usuário. Por favor, tente novamente mais tarde.');

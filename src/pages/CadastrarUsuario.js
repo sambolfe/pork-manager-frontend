@@ -58,7 +58,7 @@ const CadastrarUsuario = () => {
             setSuccessMessage('Usuário cadastrado com sucesso! Redirecionando para Usuarios em 5 segundos...');
             setTimeout(() => {
                 navigate('/gerenciarUsuario');
-              }, 5000);
+              }, 3000);
             // Limpar os campos do formulário
             setNome('');
             setCpf('');

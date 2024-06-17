@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Navigate } from 'react-router-dom'; // Importe Navigate aqui
+import { useParams } from 'react-router-dom'; // Importe Navigate aqui
 
 const EditarAlojamento = () => {
     const { alojamentoId } = useParams();
@@ -64,12 +64,11 @@ const EditarAlojamento = () => {
 
             await axios.put(`http://localhost:8080/porkManagerApi/alojamento/updateAlojamento/${alojamentoId}`, alojamentoData, config);
             console.log('Alojamento atualizado com sucesso!');
-            setSuccessMessage('Alojamento atualizado com sucesso! Redirecionando para a página de Alojamentos');
+            setSuccessMessage('Alojamento atualizado com sucesso! Redirecionando...');
             setTimeout(() => {
                 setSuccessMessage('');
-                // Redirecionar após 5 segundos
                 window.location.href = '/gerenciarAlojamento';
-            }, 5000);
+            }, 3000);
         } catch (error) {
             console.error('Erro ao atualizar alojamento:', error);
             setError('Erro ao atualizar alojamento. Por favor, tente novamente mais tarde.');

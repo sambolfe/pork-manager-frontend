@@ -71,6 +71,7 @@ const GerenciarUsuario = () => {
         setSuccessMessage('Usuário deletado com sucesso!');
       } catch (error) {
         console.error('Erro ao deletar usuário:', error);
+        setError('Não é possível deletar o usuário!! Há suínos relacionados a ele, exclua ou troque os suínos de usuário e tente novamente.');
       }
     }
   };
@@ -78,7 +79,7 @@ const GerenciarUsuario = () => {
   return (
     <div className="text-gray-900 bg-gray-200 min-h-screen">
       <div className="p-4 flex justify-between items-center">
-        <h1 className="text-3xl mx-auto"> {/* Adicionando a classe mx-auto para centralizar horizontalmente */}
+        <h1 className="text-3xl mx-auto">
           Controle de Usuário
         </h1>
         <a href="/cadastrarUsuario" className="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Cadastrar Usuário</a>

@@ -30,22 +30,22 @@ const CadastrarAlojamento = () => {
                 }
             };
 
-            console.log('Dados enviados:', {
-                nome: nome,
-                tipo: tipo,
-                capacidade: capacidade,
-                status: status
-            });
+            const alojamentoData = {
+                nome,
+                tipo,
+                capacidade,
+                status
+            };
 
-            const response = await axios.post('http://localhost:8080/porkManagerApi/alojamento/saveAlojamento', {
-                nome: nome,
-                tipo: tipo,
-                capacidade: capacidade,
-                status: status
-            }, config);
+            const response = await axios.post('http://localhost:8080/porkManagerApi/alojamento/saveAlojamento', alojamentoData, config);
 
             console.log('Alojamento cadastrado com sucesso:', response.data);
-            setSuccessMessage('Alojamento cadastrado com sucesso!');
+            setSuccessMessage('Alojamento cadastrado com sucesso! Redirecionando...');
+            setTimeout(() => {
+                setSuccessMessage('');
+                window.location.href = '/gerenciarAlojamento';
+            }, 3000);
+
             setNome('');
             setTipo('');
             setCapacidade('');

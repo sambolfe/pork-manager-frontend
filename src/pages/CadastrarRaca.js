@@ -38,12 +38,11 @@ const CadastrarRaca = () => {
 
             await axios.post('http://localhost:8080/porkManagerApi/raca/saveRaca', racaData, config);
             console.log('Raça cadastrada com sucesso!');
-            setSuccessMessage('Raça cadastrada com sucesso! Redirecionando para a página de Gerenciar Raças');
+            setSuccessMessage('Raça cadastrada com sucesso! Redirecionando...');
             setTimeout(() => {
                 setSuccessMessage('');
-                // Redirecionar após 5 segundos
                 window.location.href = '/gerenciarRaca';
-            }, 5000);
+            }, 3000);
         } catch (error) {
             console.error('Erro ao cadastrar raça:', error);
             setError('Erro ao cadastrar raça. Por favor, tente novamente mais tarde.');
