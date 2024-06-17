@@ -18,7 +18,7 @@ const Login = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', role); // Armazenando o tipo de usuário no localStorage
       setLoggedIn(true);
-      console.log('Usuário logado com sucesso'); // Adicionando log de sucesso
+      console.log('Usuário logado com sucesso');
       navigate('/Home');
     } catch (error) {
       setError('Credenciais inválidas. Por favor, tente novamente.');
