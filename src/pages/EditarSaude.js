@@ -12,12 +12,11 @@ const EditarSaude = () => {
     const [dataEntradaCio, setDataEntradaCio] = useState('');
     const [peso, setPeso] = useState('');
     const [idSuino, setIdSuino] = useState('');
+    const [idOrelha, setIdOrelha] = useState('');
     const [identificadoresOrelha, setIdentificadoresOrelha] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [idOrelha, setIdOrelha] = useState('');
-    const [idOrelhaTeste,setIdOrelhaTeste] = useState('')
 
     useEffect(() => {
         const fetchIdentificadoresSuino = async () => {
@@ -31,21 +30,24 @@ const EditarSaude = () => {
                         Authorization: `Bearer ${token}`
                     }
                 };
+
+                // Busca todos os identificadores de orelha
                 const response = await axios.get('http://localhost:8080/porkManagerApi/suino/getAllIdentificadoresOrelha', config);
                 setIdentificadoresOrelha(response.data);
-                console.log(response.data);
+
+                // Busca os dados do registro de saúde específico
                 const saudeResponse = await axios.get(`http://localhost:8080/porkManagerApi/saude/getSaude/${saudeId}`, config);
-                console.log(saudeResponse);
                 const saudeData = saudeResponse.data;
+
+                // Define os dados do registro de saúde nos estados
                 setTipoTratamento(saudeData.tipoTratamento);
                 setDataInicioTratamento(saudeData.dataInicioTratamento);
                 setObservacoes(saudeData.observacoes);
                 setDataEntradaCio(saudeData.dataEntradaCio);
                 setPeso(saudeData.peso);
-                setIdSuino(saudeData.idSuino);
-                  setIdOrelhaTeste(saudeData.identificadorOrelha)
-                  console.log(idOrelhaTeste)
-                 setIdOrelha(saudeData.identificadorOrelha)
+                setIdSuino(saudeData.idSuino); 
+                setIdOrelha(saudeData.identificadorOrelha); 
+
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao buscar identificadores de suíno ou dados de saúde:', error);
@@ -70,18 +72,22 @@ const EditarSaude = () => {
                 }
             };
 
+            // Encontra o idSuino correspondente ao identificador de orelha selecionado
+            const identificadorSelecionado = identificadoresOrelha.find(identificador => identificador.identificadorOrelha === idOrelha);
             const saudeData = {
                 tipoTratamento,
                 dataInicioTratamento,
                 observacoes,
                 dataEntradaCio,
                 peso,
-                idSuino,
-                idOrelhaTeste
+                idSuino: identificadorSelecionado ? identificadorSelecionado.idSuino : '', // Usa o idSuino correspondente ao identificador selecionado
+                identificadorOrelha: idOrelha // Envia o identificador de orelha selecionado
             };
 
+            console.log('Dados enviados para o backend:', saudeData);
+
             await axios.put(`http://localhost:8080/porkManagerApi/saude/updateSaude/${saudeId}`, saudeData, config);
-            setSuccessMessage('Registro de saúde atualizado com sucesso! redirecionando...');
+            setSuccessMessage('Registro de saúde atualizado com sucesso! Redirecionando...');
             setTimeout(() => {
                 navigate('/gerenciarSaude');
             }, 3000);
@@ -98,19 +104,21 @@ const EditarSaude = () => {
             <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
                 <h1 className="text-3xl font-bold mb-4">Editar Saúde</h1>
                 <form className="w-full" onSubmit={handleSubmit}>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3"><label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="identificadorOrelha">
-                            Identificador de Orelha
-                        </label>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="identificadorOrelha">
+                                Identificador de Orelha
+                            </label>
                             <select
                                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="identificadorOrelha"
-                                value={idOrelhaTeste}  
-                                onChange={(e) => setIdOrelhaTeste(e.target.value)}  
+                                value={idOrelha || ''}
+                                onChange={(e) => setIdOrelha(e.target.value)}
+                                disabled={loading}
                             >
-                                
+                                <option value="">Selecione um identificador</option>
                                 {identificadoresOrelha.map(identificador => (
-                                    <option key={identificador.idSuino} value={identificador.idSuino}> 
+                                    <option key={identificador.idSuino} value={identificador.identificadorOrelha}>
                                         {identificador.identificadorOrelha}
                                     </option>
                                 ))}
@@ -169,7 +177,10 @@ const EditarSaude = () => {
                                 Data de Entrada no Cio
                             </label>
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus
+                                focus
+                                focus
+                                "
                                 id="dataEntradaCio"
                                 type="date"
                                 value={dataEntradaCio || ''}
@@ -183,7 +194,10 @@ const EditarSaude = () => {
                                 Peso
                             </label>
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus
+                                focus
+                                focus
+                                "
                                 id="peso"
                                 type="number"
                                 placeholder="Peso"
@@ -203,9 +217,9 @@ const EditarSaude = () => {
                                 {loading ? 'Salvando...' : 'Salvar'}
                             </button>
                             {error && <p className="text-red-500 text-xs italic">{error}</p>}
-                        {successMessage && (
-                            <p className="bg-green-200 text-green-800 px-4 py-2 rounded">{successMessage}</p>
-                        )}
+                            {successMessage && (
+                                <p className="bg-green-200 text-green-800 px-4 py-2 rounded">{successMessage}</p>
+                            )}
                         </div>
                     </div>
                 </form>
@@ -215,4 +229,3 @@ const EditarSaude = () => {
 };
 
 export default EditarSaude;
-

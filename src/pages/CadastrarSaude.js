@@ -187,7 +187,7 @@ const CadastrarSaude = () => {
                                 <p className="text-red-500 text-xs italic mt-4">{error}</p>
                             )}
                             {successMessage && (
-                                <p className="text-green-500 text-xs italic mt-4">{successMessage}</p>
+                            <p className="bg-green-200 text-green-800 px-4 py-2 rounded">{successMessage}</p>
                             )}
                         </div>
                     </div>

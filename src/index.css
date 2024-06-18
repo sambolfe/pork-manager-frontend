@@ -13,8 +13,8 @@ code {
 }
 
 .profile-dropdown {
-  top: 30px; /* Ajuste conforme necessário */
-  right: 0; /* Ajuste conforme necessário */
+  top: 30px;
+  right: 0; 
 }
 
 .relative:hover .profile-dropdown {
