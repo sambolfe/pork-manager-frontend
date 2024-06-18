@@ -16,6 +16,8 @@ const EditarSaude = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [idOrelha, setIdOrelha] = useState('');
+    const [idOrelhaTeste,setIdOrelhaTeste] = useState('')
 
     useEffect(() => {
         const fetchIdentificadoresSuino = async () => {
@@ -31,8 +33,9 @@ const EditarSaude = () => {
                 };
                 const response = await axios.get('http://localhost:8080/porkManagerApi/suino/getAllIdentificadoresOrelha', config);
                 setIdentificadoresOrelha(response.data);
-
+                console.log(response.data);
                 const saudeResponse = await axios.get(`http://localhost:8080/porkManagerApi/saude/getSaude/${saudeId}`, config);
+                console.log(saudeResponse);
                 const saudeData = saudeResponse.data;
                 setTipoTratamento(saudeData.tipoTratamento);
                 setDataInicioTratamento(saudeData.dataInicioTratamento);
@@ -40,7 +43,9 @@ const EditarSaude = () => {
                 setDataEntradaCio(saudeData.dataEntradaCio);
                 setPeso(saudeData.peso);
                 setIdSuino(saudeData.idSuino);
-
+                  setIdOrelhaTeste(saudeData.identificadorOrelha)
+                  console.log(idOrelhaTeste)
+                 setIdOrelha(saudeData.identificadorOrelha)
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao buscar identificadores de suíno ou dados de saúde:', error);
@@ -71,7 +76,8 @@ const EditarSaude = () => {
                 observacoes,
                 dataEntradaCio,
                 peso,
-                idSuino
+                idSuino,
+                idOrelhaTeste
             };
 
             await axios.put(`http://localhost:8080/porkManagerApi/saude/updateSaude/${saudeId}`, saudeData, config);
@@ -99,10 +105,10 @@ const EditarSaude = () => {
                             <select
                                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="identificadorOrelha"
-                                value={idSuino}  
-                                onChange={(e) => setIdSuino(e.target.value)}  
+                                value={idOrelhaTeste}  
+                                onChange={(e) => setIdOrelhaTeste(e.target.value)}  
                             >
-                                <option value="">Selecione um identificador</option>
+                                
                                 {identificadoresOrelha.map(identificador => (
                                     <option key={identificador.idSuino} value={identificador.idSuino}> 
                                         {identificador.identificadorOrelha}

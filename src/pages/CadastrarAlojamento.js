@@ -11,6 +11,18 @@ const CadastrarAlojamento = () => {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    const getTokenConfig = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Token JWT não encontrado no armazenamento local.');
+        }
+        return {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -18,17 +30,7 @@ const CadastrarAlojamento = () => {
         setSuccessMessage('');
 
         try {
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                throw new Error('Token JWT não encontrado no armazenamento local.');
-            }
-
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            };
+            const config = getTokenConfig();
 
             const alojamentoData = {
                 nome,
@@ -38,18 +40,21 @@ const CadastrarAlojamento = () => {
             };
 
             const response = await axios.post('http://localhost:8080/porkManagerApi/alojamento/saveAlojamento', alojamentoData, config);
-
             console.log('Alojamento cadastrado com sucesso:', response.data);
-            setSuccessMessage('Alojamento cadastrado com sucesso! Redirecionando...');
-            setTimeout(() => {
-                setSuccessMessage('');
-                window.location.href = '/gerenciarAlojamento';
-            }, 3000);
 
+            setSuccessMessage('Alojamento cadastrado com sucesso! Redirecionando para a página de Gerenciar Alojamentos');
+
+            // Limpar os campos do formulário
             setNome('');
             setTipo('');
             setCapacidade('');
             setStatus('');
+
+            // Redirecionar após 5 segundos
+            setTimeout(() => {
+                setSuccessMessage('');
+                window.location.href = '/gerenciarAlojamento';
+            }, 5000);
         } catch (error) {
             console.error('Erro ao cadastrar alojamento:', error);
             setError('Erro ao cadastrar alojamento. Por favor, tente novamente mais tarde.');

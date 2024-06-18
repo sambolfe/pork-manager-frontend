@@ -36,7 +36,7 @@ const EditarSuino = () => {
                 };
 
                 const responseSuino = await axios.get(`http://localhost:8080/porkManagerApi/suino/getSuino/${suinoId}`, config);
-                const suinoData = responseSuino.data;
+                const suinoData = responseSuino.data
                 setIdentificacaoOrelha(suinoData.identificacaoOrelha);
                 setDataNasc(suinoData.dataNasc);
                 setSexo(suinoData.sexo);
@@ -44,17 +44,19 @@ const EditarSuino = () => {
                 setTipoSuino(suinoData.tipoSuino);
                 setIdUsuario(suinoData.idUsuario);
                 setAlojamentoId(suinoData.alojamentoId);
+                setIdRaca(suinoData.idRaca)
                 setNomeRaca(suinoData.nomeRaca);
-
+              
+            
                 const responseUsuarios = await axios.get('http://localhost:8080/porkManagerApi/usuario/getAllUsuarios', config);
                 setUsuarios(responseUsuarios.data);
-
+                
                 const responseAlojamentos = await axios.get('http://localhost:8080/porkManagerApi/alojamento/getAllAlojamentos', config);
                 setAlojamentos(responseAlojamentos.data);
 
                 const responseRacas = await axios.get('http://localhost:8080/porkManagerApi/raca/getAllRacas', config);
                 setRacas(responseRacas.data);
-
+            
 
                 setLoading(false);
             } catch (error) {
@@ -65,6 +67,7 @@ const EditarSuino = () => {
 
         fetchData();
     }, [suinoId]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -202,6 +205,7 @@ const EditarSuino = () => {
                                 onChange={(e) => setIdUsuario(e.target.value)}
                                 required
                             >
+                            
                                 <option value="">Selecione um usuário</option>
                                 {usuarios.map(usuario => (
                                     <option key={usuario.id} value={usuario.id}>{usuario.nome}</option>
@@ -221,7 +225,7 @@ const EditarSuino = () => {
                                 onChange={(e) => setIdRaca(e.target.value)}
                                 required
                             >
-                                <option value="">Selecione uma raça</option>
+                                <option value="">Selecione a raça</option>
                                 {racas.map(raca => (
                                     <option key={raca.id} value={raca.id}>{raca.nome}</option>
                                 ))}

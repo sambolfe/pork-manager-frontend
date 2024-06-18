@@ -25,7 +25,7 @@ const GerenciarRaca = () => {
 
         const response = await axios.get('http://localhost:8080/porkManagerApi/raca/getAllRacas', config);
         setRacas(response.data);
-        setTotalRacas(response.data.length); // Contador para o total de raças
+        setTotalRacas(response.data.length); 
         setError(null);
       } catch (error) {
         console.error('Erro ao carregar raças:', error);
