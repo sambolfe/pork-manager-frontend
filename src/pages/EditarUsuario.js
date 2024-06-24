@@ -10,8 +10,7 @@ const EditarUsuario = () => {
     const [cpf, setCpf] = useState('');
     const [senha, setSenha] = useState('');
     const [role, setRole] = useState('');
-    const [active, setActive] = useState(false);
-
+    const [active, setActive] = useState(false); // Armazenando como booleano
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -63,14 +62,12 @@ const EditarUsuario = () => {
                 }
             };
 
-            const activeBoolean = active === "true";
-
             const userData = {
                 nome: nome,
                 cpf: cpf,
                 senha: senha,
                 role: role,
-                active: activeBoolean
+                active: active 
             };
 
             await axios.put(`http://localhost:8080/porkManagerApi/usuario/updateUsuario/${userId}`, userData, config);
@@ -133,7 +130,7 @@ const EditarUsuario = () => {
                                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="status"
                                 value={active ? "true" : "false"}
-                                onChange={(e) => setActive(e.target.value)}
+                                onChange={(e) => setActive(e.target.value === "true")}
                                 required
                             >
                                 <option value="">Selecione...</option>

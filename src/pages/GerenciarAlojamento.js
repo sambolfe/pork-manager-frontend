@@ -24,7 +24,12 @@ const GerenciarAlojamento = () => {
         };
 
         const response = await axios.get('http://localhost:8080/porkManagerApi/alojamento/getAllAlojamentos', config);
-        setAlojamentos(response.data);
+        // Mapeia os alojamentos para incluir o número de suínos atual
+        const alojamentosComNumeroSuinos = response.data.map(alojamento => ({
+          ...alojamento,
+          numeroSuinosAtual: `${alojamento.numeroSuinosAtual} / ${alojamento.capacidade}`
+        }));
+        setAlojamentos(alojamentosComNumeroSuinos);
         setTotalAlojamentos(response.data.length);
         setError(null);
       } catch (error) {
@@ -78,6 +83,7 @@ const GerenciarAlojamento = () => {
               <th className="text-left p-3 px-5">Tipo</th>
               <th className="text-left p-3 px-5">Capacidade</th>
               <th className="text-left p-3 px-5">Status</th>
+              <th className="text-left p-3 px-5">Suínos cadastrados</th>
               <th className="text-right p-3 px-5 align-top">Ações</th>
             </tr>
             {alojamentos.map((alojamento) => (
@@ -86,6 +92,7 @@ const GerenciarAlojamento = () => {
                 <td className="p-3 px-5">{alojamento.tipo}</td>
                 <td className="p-3 px-5">{alojamento.capacidade}</td>
                 <td className="p-3 px-5">{alojamento.status}</td>
+                <td className="p-3 px-5">{alojamento.numeroSuinosAtual}</td>
                 <td className="p-3 px-5 flex justify-end">
                   <a href={`/editarAlojamento/${alojamento.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
                   <button onClick={() => handleDeleteAlojamento(alojamento.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>
@@ -102,6 +109,7 @@ const GerenciarAlojamento = () => {
               <p><strong>Tipo:</strong> {alojamento.tipo}</p>
               <p><strong>Capacidade:</strong> {alojamento.capacidade}</p>
               <p><strong>Status:</strong> {alojamento.status}</p>
+              <p><strong>Suínos cadastrados:</strong> {alojamento.numeroSuinosAtual}</p>
               <div className="flex justify-end mt-2">
                 <a href={`/editarAlojamento/${alojamento.id}`} className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
                 <button onClick={() => handleDeleteAlojamento(alojamento.id)} className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Excluir</button>

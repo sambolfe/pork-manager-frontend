@@ -67,6 +67,7 @@ const GerenciarRaca = () => {
         setSuccessMessage('Raça excluída com sucesso!');
       } catch (error) {
         console.error('Erro ao excluir raça:', error);
+        setError('Não é possível excluir a raça!! Há suínos cadastrados com essa raça.');
       }
     }
   };
